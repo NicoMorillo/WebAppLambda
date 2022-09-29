@@ -1,0 +1,1 @@
+var api = "https://hed0mf6xyc.execute-api.eu-central-1.amazonaws.com/dev"
