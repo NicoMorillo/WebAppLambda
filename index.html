@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" id="WebAPP">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='viewport' content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Deploy a form WebAPP with python and Lambda">
+<meta name="author" content="Nicolas M. Morillo Martinez">
+<meta name="keywords" content="Email, First name, Second name, City, Address, Telephone, Title">
+<meta name="robots" content="index, follow">
+<title>WebAPP form</title>
+<style>
+	.divtag2{
+		color: red;
+		font-size: 11px;
+		text-align:  center;
+	}
+	.paddd{
+		padding: 50px;
+		}
+</style>
+</head>
+<div class="paddd"></div>
+	<body style="background-color: peachpuff;">
+	<h2 align="center">User Registration</h2>
+		<form action=" http://nico-web-serverless.s3-website.eu-central-1.amazonaws.com" method="post">
+			<div class="divtag1">
+				<table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color: skyblue;">
+					<tr>
+						<td><font color="red">*</font>Email: </td>
+						<td><input type="email" name="email" id="email" onkeyup="value = value.toLowerCase()" required></td>
+					</tr>
+					<tr>
+						<td><font color="red">*</font>First Name: </td>
+						<td><input type="text" name="username" id="username" required></td>
+					</tr>
+					<tr>
+						<td><font color="red">*</font>Password: </td>
+						<td><input type="password" name="password" id="password" required></td>
+					</tr>
+					<tr>
+						<td><font color="red">*</font>User details: </td>
+						<td><input type="text" name="userdetails" id="userdetails" required></td>
+					</tr>
+						<th colspan="2">
+							<input type="submit" name="btnGrabar" value="Submit"></th>
+					</tr>
+				</table>
+			</div>
+			<div class="divtag2">
+				<p>* Mandatory information </p>
+			</div>
+			</form>
+
+	</body>
+</div>
+</html>
