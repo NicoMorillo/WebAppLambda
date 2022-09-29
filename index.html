@@ -1,57 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" id="WebAPP">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name='viewport' content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Deploy a form WebAPP with python and Lambda">
-<meta name="author" content="Nicolas M. Morillo Martinez">
-<meta name="keywords" content="Email, First name, Second name, City, Address, Telephone, Title">
-<meta name="robots" content="index, follow">
-<title>WebAPP form</title>
-<style>
-	.divtag2{
-		color: red;
-		font-size: 11px;
-		text-align:  center;
-	}
-	.paddd{
-		padding: 50px;
-		}
-</style>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <!-- Add some CSS to change client UI -->
+    <style>
+    body {
+        background-color: #232F3E;
+        }
+    label, button {
+        color: #FF9900;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 40px;
+        }
+     input {
+        color: #232F3E;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-left: 20px;
+        }
+    </style>
+    <script>
+        // define the callAPI function that takes a first name and last name as parameters
+        var callAPI = (email,username,password,userdetails)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"email":email,"username":username,"password":password,"userdetails":userdetails});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://90tufsnyx3.execute-api.eu-central-1.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
 </head>
-<div class="paddd"></div>
-	<body style="background-color: peachpuff;">
-	<h2 align="center">User Registration</h2>
-		<form action=" http://nico-web-serverless.s3-website.eu-central-1.amazonaws.com" method="post">
-			<div class="divtag1">
-				<table style="border:1px solid black;margin-left:auto;margin-right:auto;background-color: skyblue;">
-					<tr>
-						<td><font color="red">*</font>Email: </td>
-						<td><input type="email" name="email" id="email" onkeyup="value = value.toLowerCase()" required></td>
-					</tr>
-					<tr>
-						<td><font color="red">*</font>First Name: </td>
-						<td><input type="text" name="username" id="username" required></td>
-					</tr>
-					<tr>
-						<td><font color="red">*</font>Password: </td>
-						<td><input type="password" name="password" id="password" required></td>
-					</tr>
-					<tr>
-						<td><font color="red">*</font>User details: </td>
-						<td><input type="text" name="userdetails" id="userdetails" required></td>
-					</tr>
-						<th colspan="2">
-							<input type="submit" name="btnGrabar" value="Submit"></th>
-					</tr>
-				</table>
-			</div>
-			<div class="divtag2">
-				<p>* Mandatory information </p>
-			</div>
-			</form>
-
-	</body>
-</div>
+<body>
+    <form>
+        <label>Email :</label>
+        <input type="email" id="email">
+        <label>Username :</label>
+        <input type="text" id="username">
+        <label>Password :</label>
+        <input type="password" id="password">
+        <label>User details :</label>
+        <input type="text" id="userdetails">
+        <!-- set button onClick method to call function we defined passing input values as parameters -->
+        <button type="button" onclick="callAPI(document.getElementById('email').value,document.getElementById('email').value)">Call API</button>
+    </form>
+</body>
 </html>
