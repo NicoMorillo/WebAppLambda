@@ -1,15 +1,24 @@
 import json
 import boto3
 
-dynamodb = boto3.client('dynamodb')
+dynamodb = boto3.resource('dynamodb')
+
+table = dynamodb.Table('nico-lambda-table')
 
 def lambda_handler(event, context):
-    
-    username = event['username']
     email = event['email']
+    username = event['username']
     password = event['password']
     userdetails = event['userdetails']
-    
-    response = dynamodb.put_item(TableName='nico-lambda-table', Item={'username':{'S':username},'email':{'S':email},'password':{'S':password},'userdetails':{'S':userdetails}})
-    
-    print(email)
+
+    response = table.put_item(
+        Item={
+            'email': email,
+            'username': username,
+            'password': password,
+            'userdetails': userdetails
+        })
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from lambda, ' + username)
+    }
